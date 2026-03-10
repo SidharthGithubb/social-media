@@ -1,6 +1,6 @@
-export const Header = () => {
+const Header = () => {
   return (
-    <header className="p-3 text-bg-dark">
+    <header className="p-3 text-bg-dark header">
       <div className="container">
         <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
           <a
@@ -68,3 +68,4 @@ export const Header = () => {
     </header>
   );
 };
+export default Header;
