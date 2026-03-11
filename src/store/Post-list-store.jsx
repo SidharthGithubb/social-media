@@ -12,14 +12,22 @@ const postListReducer = (currentPostLists, action) => {
       (post) => post.id !== action.payload.postId,
     );
     return newPostLists;
+  } else if (action.type === "ADD_POST") {
+    newPostLists = [action.payload.newPost, ...currentPostLists];
+    return newPostLists;
   }
   return currentPostLists;
 };
 const PostListProvider = ({ children }) => {
   const [postLists, dispatch] = useReducer(postListReducer, DEFAULT_POST_LIST);
 
-  const addPost = () => {
-    //dispatch();
+  const addPost = (newPost) => {
+    console.log("new post", newPost);
+    const action = {
+      type: "ADD_POST",
+      payload: { newPost },
+    };
+    dispatch(action);
   };
 
   const deletePost = (postId) => {

@@ -5,5 +5,7 @@
   width: 100%;
 }
 .create-post {
-  margin: 20px;
+  width: 80%;
+  margin-top: 50px;
+  margin-left: 10%;
 }
