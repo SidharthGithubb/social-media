@@ -1,15 +1,15 @@
 const Spinner = () => {
   return (
     <div
-      class="d-flex justify-content-center"
+      className="d-flex justify-content-center"
       style={{ margin: "20px 0 0 20px" }}
     >
       <div
-        class="spinner-border"
+        className="spinner-border"
         style={{ width: "5rem", height: "5rem" }}
         role="status"
       >
-        <span class="visually-hidden">Loading...</span>
+        <span className="visually-hidden">Loading...</span>
       </div>
     </div>
   );
