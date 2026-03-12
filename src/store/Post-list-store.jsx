@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useCallback, useReducer } from "react";
 
 export const PostListContext = createContext({
   postLists: [],
@@ -26,30 +26,39 @@ const postListReducer = (currentPostLists, action) => {
 const PostListProvider = ({ children }) => {
   const [postLists, dispatch] = useReducer(postListReducer, []);
 
-  const addPost = (newPost) => {
-    console.log("new post", newPost);
-    const action = {
-      type: "ADD_POST",
-      payload: { newPost },
-    };
-    dispatch(action);
-  };
+  const addPost = useCallback(
+    (newPost) => {
+      console.log("new post", newPost);
+      const action = {
+        type: "ADD_POST",
+        payload: { newPost },
+      };
+      dispatch(action);
+    },
+    [dispatch],
+  );
 
-  const deletePost = (postId) => {
-    const action = {
-      type: "DELETE_POST",
-      payload: { postId },
-    };
-    dispatch(action);
-  };
+  const deletePost = useCallback(
+    (postId) => {
+      const action = {
+        type: "DELETE_POST",
+        payload: { postId },
+      };
+      dispatch(action);
+    },
+    [dispatch],
+  );
 
-  const initialPosts = (posts) => {
-    const action = {
-      type: "INITIAL_POSTS",
-      payload: { posts },
-    };
-    dispatch(action);
-  };
+  const initialPosts = useCallback(
+    (posts) => {
+      const action = {
+        type: "INITIAL_POSTS",
+        payload: { posts },
+      };
+      dispatch(action);
+    },
+    [dispatch],
+  );
   return (
     <PostListContext.Provider
       value={{
