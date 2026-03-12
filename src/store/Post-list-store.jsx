@@ -4,6 +4,7 @@ export const PostListContext = createContext({
   postLists: [],
   addPost: () => {},
   deletePost: () => {},
+  initialPosts: () => {},
 });
 const postListReducer = (currentPostLists, action) => {
   let newPostLists = currentPostLists;
@@ -15,11 +16,15 @@ const postListReducer = (currentPostLists, action) => {
   } else if (action.type === "ADD_POST") {
     newPostLists = [action.payload.newPost, ...currentPostLists];
     return newPostLists;
+  } else if (action.type === "INITIAL_POSTS") {
+    newPostLists = action.payload.posts;
+    return newPostLists;
+  } else {
+    return currentPostLists;
   }
-  return currentPostLists;
 };
 const PostListProvider = ({ children }) => {
-  const [postLists, dispatch] = useReducer(postListReducer, DEFAULT_POST_LIST);
+  const [postLists, dispatch] = useReducer(postListReducer, []);
 
   const addPost = (newPost) => {
     console.log("new post", newPost);
@@ -37,12 +42,21 @@ const PostListProvider = ({ children }) => {
     };
     dispatch(action);
   };
+
+  const initialPosts = (posts) => {
+    const action = {
+      type: "INITIAL_POSTS",
+      payload: { posts },
+    };
+    dispatch(action);
+  };
   return (
     <PostListContext.Provider
       value={{
         postLists,
         addPost,
         deletePost,
+        initialPosts,
       }}
     >
       {children}
@@ -50,30 +64,4 @@ const PostListProvider = ({ children }) => {
   );
 };
 
-const DEFAULT_POST_LIST = [
-  {
-    id: 1,
-    title: "His mother had always taught him",
-    body: "His mother had always taught him not to ever think of himself as better than others. He'd tried to live by this motto. He never looked down on those who were less fortunate or who had less money than him. But the stupidity of the group of people he was talking to made him change his mind.",
-    tags: ["history", "american", "crime"],
-    reactions: {
-      likes: 192,
-      dislikes: 25,
-    },
-    views: 305,
-    userId: 121,
-  },
-  {
-    id: 2,
-    title: "His mother had always taught him",
-    body: "His mother had always taught him not to ever think of himself as better than others. He'd tried to live by this motto. He never looked down on those who were less fortunate or who had less money than him. But the stupidity of the group of people he was talking to made him change his mind.",
-    tags: ["history", "american", "crime"],
-    reactions: {
-      likes: 192,
-      dislikes: 25,
-    },
-    views: 305,
-    userId: 121,
-  },
-];
 export default PostListProvider;

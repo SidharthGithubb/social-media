@@ -1,7 +1,7 @@
 import { useContext, useRef } from "react";
 import { PostListContext } from "../store/Post-list-store";
 
-const Createpost = () => {
+const Createpost = ({ setSelectedTab }) => {
   const { addPost } = useContext(PostListContext);
   const userIdRef = useRef();
   const titleRef = useRef();
@@ -32,6 +32,7 @@ const Createpost = () => {
     likesRef.current.value = "";
     dislikesRef.current.value = "";
     tagsRef.current.value = "";
+    setSelectedTab("Home");
   };
 
   return (
