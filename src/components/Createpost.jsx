@@ -18,20 +18,28 @@ const Createpost = ({ setSelectedTab }) => {
     const likes = likesRef.current.value;
     const dislikes = dislikesRef.current.value;
     const tags = tagsRef.current.value.split(" ");
-    const newPost = {
-      userId,
-      title,
-      body,
-      reactions: { likes: likes, dislikes: dislikes },
-      tags,
-    };
-    addPost(newPost);
+
     userIdRef.current.value = "";
     titleRef.current.value = "";
     bodyRef.current.value = "";
     likesRef.current.value = "";
     dislikesRef.current.value = "";
     tagsRef.current.value = "";
+
+    fetch("https://dummyjson.com/posts/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: userId,
+        title: title,
+        body: body,
+        reactions: { likes: likes, dislikes: dislikes },
+        tags: tags,
+      }),
+    })
+      .then((res) => res.json())
+      .then((newPost) => addPost(newPost));
+
     setSelectedTab("Home");
   };
 

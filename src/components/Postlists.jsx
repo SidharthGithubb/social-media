@@ -4,18 +4,7 @@ import Post from "./Post";
 import Spinner from "./Spinner";
 
 const Postlists = () => {
-  const { postLists, initialPosts } = useContext(PostListContext);
-  const [fetching, setFetching] = useState(false);
-
-  useEffect(() => {
-    setFetching(true);
-    fetch("https://dummyjson.com/posts")
-      .then((res) => res.json())
-      .then((data) => {
-        initialPosts(data.posts);
-        setFetching(false);
-      });
-  }, []);
+  const { postLists, fetching } = useContext(PostListContext);
 
   return (
     <>
